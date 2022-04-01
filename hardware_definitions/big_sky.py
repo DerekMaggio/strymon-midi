@@ -6,6 +6,11 @@ from typing import (
     List,
     Union,
 )
+
+from errors import (
+    InvalidChannelError,
+    InvalidControlChangeValueError,
+)
 from midi_message_types import ControlChangeMessage
 
 
@@ -29,9 +34,7 @@ class ReverbTypes(IntEnum):
     REFLECTIONS = 11
 
 
-
-
-class StrymonBigSky(Enum):
+class StrymonBigSkyCCEnum(Enum):
     TYPE_ENCODER = (19, ReverbTypes.__members__.values())
     DECAY = (17, range(0, 128))
     PRE_DELAY = (18, range(0, 128))
@@ -49,18 +52,46 @@ class StrymonBigSky(Enum):
         self.cc_number = cc_number
         self.acceptable_vals = acceptable_vals
 
-    @staticmethod
-    def _generate_message(channel: int, message):
-        return ControlChangeMessage(
-            channel=channel,
-            control=message.cc_number,
-            value=FootswitchState.FOOTSWITCH_UP
-        ).generate_message()
 
-    @classmethod
-    def footswitch_a(cls, channel: int):
-        return cls._generate_message(channel, cls.FOOTSWITCH_A)
+def generate_message(channel: int, message: StrymonBigSkyCCEnum, val: int):
 
-    @classmethod
-    def footswitch_b(cls, channel: int):
-        return cls._generate_message(channel, cls.FOOTSWITCH_B)
+    if val not in message.acceptable_vals:
+        raise InvalidControlChangeValueError(val, message.acceptable_vals)
+
+    return ControlChangeMessage(
+        channel=channel,
+        control=message.cc_number,
+        value=val
+    ).generate_message()
+
+
+class StrymonBigSky:
+    def __init__(self, channel: int) -> None:
+        if 1 > channel < 16:
+            raise InvalidChannelError(channel)
+        self.channel = channel
+
+    @property
+    def actual_channel(self):
+        return self.channel - 1
+
+    def toggle_footswitch_a(self):
+        return generate_message(
+            self.actual_channel,
+            StrymonBigSkyCCEnum.FOOTSWITCH_A,
+            FootswitchState.FOOTSWITCH_UP
+        )
+
+    def toggle_footswitch_b(self):
+        return generate_message(
+            self.actual_channel,
+            StrymonBigSkyCCEnum.FOOTSWITCH_B,
+            FootswitchState.FOOTSWITCH_UP
+        )
+
+    def toggle_footswitch_c(self):
+        return generate_message(
+            self.actual_channel,
+            StrymonBigSkyCCEnum.FOOTSWITCH_C,
+            FootswitchState.FOOTSWITCH_UP
+        )
