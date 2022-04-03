@@ -5,15 +5,15 @@ from typing import (
 
 
 class InvalidControlChangeValueError(Exception):
-    def __init__(self, value: int, acceptable_values: Union[range, List[int]]) -> None:
+    def __init__(self, value: Union[str, int], acceptable_values: Union[range, List[str]]) -> None:
 
         if isinstance(acceptable_values, range):
             acceptable_values_str = f"{min(acceptable_values)}-{max(acceptable_values)}"
         else:
-            acceptable_values_str = ', '.join(str(int(val)) for val in acceptable_values)
+            acceptable_values_str = ', '.join(val for val in acceptable_values)
 
         super().__init__(
-            f"Passed value {value} is not valid. \nAcceptable values "
+            f"Passed value \"{value}\" is not valid. \nAcceptable values "
             f"are: {acceptable_values_str}"
         )
 

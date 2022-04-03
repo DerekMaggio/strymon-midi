@@ -1,0 +1,110 @@
+{
+    "name": "Big Sky",
+    "hardware": {
+        "Footswitch A": {
+            "type": "discrete",
+            "cc_number": 80,
+            "values": {
+                "Down": 0,
+                "Up": 127
+            }
+        },
+        "Footswitch B": {
+            "type": "discrete",
+            "cc_number": 82,
+            "values": {
+                "Down": 0,
+                "Up": 127
+            }
+        },
+        "Footswitch C": {
+            "type": "discrete",
+            "cc_number": 81,
+            "values": {
+                "Down": 0,
+                "Up": 127
+            }
+        },
+        "Reverb Type": {
+            "type": "discrete",
+            "cc_number": 19,
+            "values": {
+                    "Room": 0,
+                    "Hall": 1,
+                    "Plate": 2,
+                    "Spring": 3,
+                    "Swell": 4,
+                    "Bloom": 5,
+                    "Cloud": 6,
+                    "Chorale": 7,
+                    "Shimmer": 8,
+                    "Magneto": 9,
+                    "Nonlinear": 10,
+                    "Reflections": 11
+            }
+        },
+        "Decay Knob": {
+            "type": "continuous",
+            "cc_number": 17,
+            "values": {
+                "min": 0,
+                "max": 127,
+                "default": 50
+            }
+        },
+        "Pre-Delay Knob": {
+            "type": "continuous",
+            "cc_number": 18,
+            "values": {
+                "min": 0,
+                "max": 127,
+                "default": 50
+            }
+        },
+        "Mix Knob": {
+            "type": "continuous",
+            "cc_number": 15,
+            "values": {
+                "min": 0,
+                "max": 127,
+                "default": 50
+            }
+        },
+        "Tone Knob": {
+            "type": "continuous",
+            "cc_number": 3,
+            "values": {
+                "min": 0,
+                "max": 127,
+                "default": 50
+            }
+        },
+        "Param 1 Knob": {
+            "type": "continuous",
+            "cc_number": 9,
+            "values": {
+                "min": 0,
+                "max": 127,
+                "default": 50
+            }
+        },
+        "Param 2 Knob": {
+            "type": "continuous",
+            "cc_number": 16,
+            "values": {
+                "min": 0,
+                "max": 127,
+                "default": 50
+            }
+        },
+        "Mod Knob": {
+            "type": "continuous",
+            "cc_number": 14,
+            "values": {
+                "min": 0,
+                "max": 127,
+                "default": 50
+            }
+        }
+    }
+}
